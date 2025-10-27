@@ -1,5 +1,16 @@
 from . import types
 
+# alphanumeric characters are not encoded with unicode and instead use a special table
+_ALPHANUMERIC_CHARACTER_TABLE = {
+    " ": 36, "$": 37, "%": 38,
+    "*": 39, "+": 40, "-": 41,
+    ".": 42, "/": 43, ":": 44
+}
+for i in range(ord("0"), ord("9") + 1):
+    _ALPHANUMERIC_CHARACTER_TABLE[chr(i)] = i - ord("0")
+for i in range(ord("A"), ord("Z") + 1):
+    _ALPHANUMERIC_CHARACTER_TABLE[chr(i)] = (i - ord("A")) + 10
+
 # bits use in character count indicator
 _NUMERIC_CHARACTER_COUNT_BITS = [10, 12, 14]
 _ALPHANUMERIC_CHARACTER_COUNT_BITS = [9, 11, 13]
