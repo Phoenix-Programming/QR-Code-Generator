@@ -55,3 +55,22 @@ def _encode_alphanumeric(data: str, version: int) -> bitarray:
         encoded_data += int2ba(_ALPHANUMERIC_CHARACTER_TABLE[data[-1]], 6)
 
     return encoded_data
+
+def _encode_byte(data: str, version: int) -> bitarray:
+    """
+    Encodes byte data for a QR code. Does not handle padding the data to the correct length.
+    """
+    character_count = len(data)
+    encoded_data = bitarray()
+
+    # add mode info
+    encoded_data += int2ba(Mode.BYTE, 4)
+
+    # number of bits depends on qr version (size)
+    character_count_bits = _get_char_count_bits(Mode.BYTE, version)
+    encoded_data += int2ba(character_count, character_count_bits)
+
+    # each character is 8 bits as set in iso-8859-1
+    encoded_data += bitarray(data.encode('iso-8859-1'))
+
+    return encoded_data

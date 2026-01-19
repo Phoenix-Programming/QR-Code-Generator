@@ -1,6 +1,6 @@
 from bitarray import bitarray
 
-from qr_generator.encoding import _encode_numeric, _encode_alphanumeric
+from qr_generator.encoding import _encode_numeric, _encode_alphanumeric, _encode_byte
 
 def test_encoding_numeric():
 
@@ -21,3 +21,11 @@ def test_encoding_alphanumeric():
 
     assert expected == actual
 
+
+def test_encoding_bytes():
+    data = "Hèllo, wörld!"
+
+    expected = bitarray("0100 00001101 01001000 11101000 01101100 01101100 01101111 00101100 00100000 01110111 11110110 01110010 01101100 01100100 00100001")
+    actual = _encode_byte(data, version=1)
+
+    assert expected == actual
