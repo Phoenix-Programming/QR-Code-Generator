@@ -289,3 +289,9 @@ def _get_char_count_bits(mode: 'types.Mode', version: int) -> int:
             # this branch should be unreachable if correct types are passed into this function
             raise TypeError("Invalid mode specifier")
 
+# dirty retriever
+def get_character_capacity(version: int, error_correction: 'types.ErrorCorrection', mode: 'types.Mode') -> int:
+    try:
+        return _CHARACTER_CAPACITIES_TABLE[version][error_correction][mode]
+    except:
+        raise ValueError("Invalid mode specifier")
