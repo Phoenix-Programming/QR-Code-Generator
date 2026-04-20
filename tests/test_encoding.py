@@ -29,3 +29,4 @@ def test_encoding_bytes():
     actual = _encode_byte(data, version=1)
 
     assert expected == actual
+
